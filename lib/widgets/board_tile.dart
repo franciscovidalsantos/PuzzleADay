@@ -1,28 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:puzzle_a_day/models/tile.dart';
 
 class BoardTile extends StatelessWidget {
-  const BoardTile({super.key, required this.x, required this.y});
-  final int x;
-  final int y;
-
-  Color get tileColor {
-    if (y < 2) {
-      // first two rows
-      return x < 6 ? Colors.blue : Colors.grey;
-    } else if (y < 6) {
-      // middle four rows
-      return Colors.blue[200]!;
-    } else {
-      // last row
-      return x < 3 ? Colors.blue[200]! : Colors.grey;
-    }
-  }
+  const BoardTile({super.key, required this.tile});
+  final Tile tile;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: tileColor),
-      child: Center(child: Text("($x,$y)")),
+      decoration: BoxDecoration(color: tile.color),
+      child: Center(
+        child: Text(
+          tile.text,
+          style: TextStyle(
+            color:
+                tile.type == TileType.month
+                    ? Colors.blue.shade800
+                    : Colors.green.shade800,
+          ),
+        ),
+      ),
     );
   }
 }
